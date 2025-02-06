@@ -1,0 +1,4 @@
+requests
+ollama 
+pypdf 
+langchain-community
