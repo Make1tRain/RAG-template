@@ -1,5 +1,5 @@
 MODEL = "deepseek-r1:14b"
-CHROMA_PATH = "chroma"
+CHROMA_PATH = "./chroma"
 DATA_PATH = "./data"  
 
 PROMPT_TEMPLATE = """ 
