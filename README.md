@@ -50,18 +50,23 @@ python -m pip install -r requirements.txt
 ## ⚙️ Setup and Usage
 1. Clone the Repository
 ```bash 
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/Make1tRain/RAG-template.git
+cd RAG-template
 ```
 
 2. Install the Required Packages
 ```bash 
 python -m pip install -r requirements.txt
 ```
-3. Prepare Your Data
+3. Run `setup.py` for the creation of the `DATA_PATH` and `CHROMA_PATH` directories which are located inside `constants.py`
+```bash 
+python setup.py
+```
+
+4. Prepare Your Data
 Place your PDF documents in the directory specified by the DATA_PATH constant in constants.py (default is ./data).
 
-4. Running the AI-Agent
+5. Running the AI-Agent
 Single Query CLI
 To run a single query against the RAG pipeline, execute:
 ```bash 
