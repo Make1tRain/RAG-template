@@ -82,7 +82,7 @@ Then type your queries. Type exit or bye to quit the session.
 ## 🔍 How It Works
 Document Processing:
 
-Loading: The agent loads PDF documents from the specified directory. 
+Loading: The agent loads PDF and CSV documents from the specified directory. 
 
 Splitting: Documents are split into smaller, overlapping chunks for easier processing.
 

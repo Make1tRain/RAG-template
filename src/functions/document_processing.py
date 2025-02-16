@@ -9,8 +9,16 @@ import os
 
 
 def get_document_paths(directory_path: str, extension: str) -> List[str]:
-    import os
+    """
+    Retrieves all file paths with the given extension from the specified directory.
 
+    Args:
+        directory_path (str): Path to the directory containing the files.
+        extension (str): File extension to filter (e.g., "pdf", "csv").
+
+    Returns:
+        List[str]: A list of file paths that match the given extension.
+    """
     paths = []
     for item in os.listdir(directory_path):
         if item.endswith(f".{extension}"):
@@ -20,8 +28,17 @@ def get_document_paths(directory_path: str, extension: str) -> List[str]:
 
 
 def load_pdf(directory_path: str) -> List[Document]:
+    """
+    Loads all PDF documents from a specified directory.
+
+    Args:
+        directory_path (str): Path to the directory containing PDF files.
+
+    Returns:
+        List[Document]: A list of Document objects extracted from PDFs.
+    """
     file_paths = get_document_paths(directory_path, "pdf")
-    documents = []
+    documents: List[Document] = []
 
     for file_path in file_paths:
         loader = PyPDFLoader(file_path)
@@ -31,24 +48,42 @@ def load_pdf(directory_path: str) -> List[Document]:
 
 
 def load_csv(directory_path: str) -> List[Document]:
-    file_paths = get_document_paths(directory_path, "csv")
+    """
+    Loads all CSV documents from a specified directory.
 
-    documents = []
+    Args:
+        directory_path (str): Path to the directory containing CSV files.
+
+    Returns:
+        List[Document]: A list of Document objects extracted from CSVs.
+    """
+    file_paths = get_document_paths(directory_path, "csv")
+    documents: List[Document] = []
 
     for file_path in file_paths:
-        loader = CSVLoader(file_path)  # Load each PDF file separately
-        documents.extend(loader.load())  # Append the extracted text
+        loader = CSVLoader(file_path)
+        documents.extend(loader.load())
+
     return documents
 
 
-def load_documents(file_path: str) -> List[Document]:
+def load_documents(directory_path: str) -> List[Document]:
+    """
+    Loads all document files (PDF and CSV) from a specified directory.
 
-    documents = []
-    for document in load_pdf(file_path):
-        documents.append(document)
+    Args:
+        directory_path (str): Path to the directory containing documents.
 
-    for document in load_csv(file_path):
-        documents.append(document)
+    Returns:
+        List[Document]: A list of Document objects extracted from PDFs and CSVs.
+    """
+    documents: List[Document] = []
+
+    # Load PDFs
+    documents.extend(load_pdf(directory_path))
+
+    # Load CSVs
+    documents.extend(load_csv(directory_path))
 
     return documents
 
