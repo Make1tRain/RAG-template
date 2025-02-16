@@ -6,6 +6,22 @@ from functions.database import add_to_chroma
 from functions.query import query_rag
 from constants import MODEL, DATA_PATH
 
+def initialize(): 
+    # Initialize the language model
+    model = Ollama(model=MODEL)
+
+    # Load and preprocess documents
+    documents = split_documents(load_documents(DATA_PATH))
+
+    # Compute unique chunk IDs for the documents
+    calculate_chunk_ids(documents)
+
+    # Store the processed documents in the vector database
+    add_to_chroma(documents)
+
+    return model 
+
+
 def run_single_cli(prompt: str) -> str:
     """
     Runs a single query against a RAG (Retrieval-Augmented Generation) pipeline.
@@ -23,17 +39,8 @@ def run_single_cli(prompt: str) -> str:
     Returns:
         str: The generated response from the model.
     """
-    # Initialize the language model
-    model = Ollama(model=MODEL)
 
-    # Load and preprocess documents
-    documents = split_documents(load_documents(DATA_PATH))
-
-    # Compute unique chunk IDs for the documents
-    calculate_chunk_ids(documents)
-
-    # Store the processed documents in the vector database
-    add_to_chroma(documents)
+    model = initialize()
 
     # Retrieve an answer using the query
     answer = query_rag(model, prompt)
@@ -56,17 +63,7 @@ def run_multi_cli() -> None:
     Returns:
         None
     """
-    # Initialize the language model
-    model = Ollama(model=MODEL)
-
-    # Load and preprocess documents
-    documents = split_documents(load_documents(DATA_PATH))
-
-    # Compute unique chunk IDs for the documents
-    calculate_chunk_ids(documents)
-
-    # Store the processed documents in the vector database
-    add_to_chroma(documents)
+    model = initialize()
 
     while True:
         # Prompt user for input
