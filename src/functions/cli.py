@@ -1,6 +1,6 @@
 from langchain_community.llms.ollama import Ollama
 
-from functions.pdf_processing import load_documents, split_documents
+from functions.document_processing import load_documents, split_documents
 from functions.id_calculation import calculate_chunk_ids
 from functions.database import add_to_chroma   
 from functions.query import query_rag
